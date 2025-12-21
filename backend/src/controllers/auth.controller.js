@@ -3,6 +3,7 @@ import { generateToken } from "../lib/utils.js";
 import bcrypt from "bcryptjs";
 import { sendWelcomeEmail } from "../emails/emailHandlers.js";
 import { ENV } from "../lib/env.js";
+import cloudinary from "../lib/cloudinary.js";
 
 export const signup = async (req, res) => {
     const {fullName, email, password} = req.body;
@@ -98,5 +99,30 @@ export const logout = (_, res) => {
     } catch(error) {
         console.error("Error in logout module: ", error);
         res.status(500).json({message: "Internal server error"});
+    }
+}
+
+export const updateProfile = async (req, res) => {
+    try {
+        const { profilePic } = req.body;
+        if(!profilePic) return res.status(400).json({message: "Profile pic is required"});
+
+        const userId = req.user._id;
+        
+        const uploadResult = await cloudinary.uploader
+        .upload(profilePic)
+        .catch((error) => {
+            console.log(error);
+        });
+        
+        console.log(uploadResult);
+
+        const updatedUser = await User.findByIdAndUpdate(userId, {profilePic:uploadResult.secure_url}, {new:true}).select("-password");
+
+        res.status(200).json(updatedUser);
+
+    } catch(error) {
+        console.log("Error in update profile: ",error);
+        res.status(500).json({message:"Internal server error"});
     }
 }
