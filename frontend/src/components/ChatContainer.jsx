@@ -73,7 +73,7 @@ function ChatContainer() {
         )}
       </div>
 
-      //<MessageInput />
+      <MessageInput />
     </>
   );
 }
