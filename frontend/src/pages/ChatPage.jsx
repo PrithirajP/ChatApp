@@ -5,6 +5,7 @@ import { useChatStore } from '../store/useChatStore';
 import ActiveTabSwitch from '../components/ActiveTabSwitch';
 import ChatContainer from '../components/ChatContainer';
 import ChatsList from '../components/ChatsList';
+import ContactList from '../components/ContactList';
 import NoConversationPlaceholder from '../components/NoConversationPlaceholder';
 import ProfileHeader from '../components/ProfileHeader';
 
