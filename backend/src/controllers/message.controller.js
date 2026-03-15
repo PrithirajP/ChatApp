@@ -6,11 +6,9 @@ import { getReceiverSocketId, io } from "../lib/socket.js";
 
 export const getAllContacts = async (req, res) => {
     try {
-        const loggedInUserId = req.user._id;
-        // excluding self
-        const filteredUsers = await User.find({_id: { $ne: loggedInUserId}}).select("-password");
-        
-        res.status(200).json(filteredUsers);
+        // Only return the logged-in user's friends, not all users
+        const user = await User.findById(req.user._id).populate("friends", "-password");
+        res.status(200).json(user.friends);
     } catch(error) {
         console.log("Error in getAllContacts: ", error);
         res.status(500).json({message: "Internal server error"});
