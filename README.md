@@ -47,7 +47,6 @@ CLIENT_URL=http://localhost:5173          # Vite dev origin (CORS for sockets)
 CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
-RESEND_API_KEY=your_resend_api_key        # (optional) if using Resend for emails
 EMAIL_FROM=you@example.com
 EMAIL_FROM_NAME="ChatApp"
 ARCJET_KEY=...                            # optional: project includes arcjet middleware
