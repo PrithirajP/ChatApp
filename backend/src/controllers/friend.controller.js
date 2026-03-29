@@ -174,7 +174,7 @@ export const searchUsers = async (req, res) => {
             return res.status(400).json({ message: "Email is required" });
         }
 
-        // Exact email match only — more private than partial name search
+        // Exact email match only 
         const user = await User.findOne({
             email: q.trim().toLowerCase(),
             _id: { $ne: req.user._id },
